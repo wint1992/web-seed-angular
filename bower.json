@@ -1,0 +1,24 @@
+{
+  "name": "susek.ru",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Chuchalin Andrew <chuchalin92@mail.ru>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "reset-css": "~2.0.2011012602"
+  }
+}
