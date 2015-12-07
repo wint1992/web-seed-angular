@@ -18,6 +18,10 @@ gulp.task('connect', function() {
     livereload: true
   });
 });
+
+gulp.task('connect-stop', function() {
+  connect.serverClose();
+});
  
 gulp.task('html', function () {
   gulp.src('./app/*.html')
@@ -71,7 +75,7 @@ gulp.task('compileSass', function(){
 	return gulp.src('./app/sass/**/*.scss')
 			.pipe(sass().on('error', sass.logError))
 			.pipe(concat('style.css'))
-			.pipe(autoprefixer('last 2 versions'))
+			// .pipe(autoprefixer('last 2 versions'))
 			.pipe(csso())
 			.pipe(minifyCss())
 			.pipe(gulp.dest('./app/css/'))
@@ -84,4 +88,4 @@ gulp.task('watch', function(){
 	gulp.watch(['./app/*.html'], ['html']);
 });
 
-gulp.task('default', ['connect', 'concatUsageJS', 'concatUsageCSS', 'watch']);
+gulp.task('default', ['connect', 'concatUsageJS', 'concatUsageCSS','concatAngularJS', 'compileSass', 'watch']);
