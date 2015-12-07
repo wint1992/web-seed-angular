@@ -1,3 +1,5 @@
+"use strict";
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
@@ -5,13 +7,28 @@ var less = require('gulp-less');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var csso = require('gulp-csso');
+var connect = require('gulp-connect');
+var autoprefixer = require('gulp-autoprefixer');
 
 var components = './app/bower_components/';
 
+gulp.task('connect', function() {
+  connect.server({
+    root: 'app',
+    livereload: true
+  });
+});
+ 
+gulp.task('html', function () {
+  gulp.src('./app/*.html')
+    .pipe(connect.reload());
+});
+
 gulp.task('concatAngularJS', function(){
-	return gulp.src('./app/js/angularapp/**/*.js')
+	return gulp.src('./app/js/angularApp/**/*.js')
 			.pipe(concat('app.js'))
-			.pipe(gulp.dest('./app/js/'));
+			.pipe(gulp.dest('./app/js/'))
+			.pipe(connect.reload());
 });
 
 gulp.task('concatUsageJS', function(){
@@ -54,14 +71,17 @@ gulp.task('compileSass', function(){
 	return gulp.src('./app/sass/**/*.scss')
 			.pipe(sass().on('error', sass.logError))
 			.pipe(concat('style.css'))
+			.pipe(autoprefixer('last 2 versions'))
 			.pipe(csso())
 			.pipe(minifyCss())
-			.pipe(gulp.dest('./app/css/'));
+			.pipe(gulp.dest('./app/css/'))
+			.pipe(connect.reload());
 });
 
 gulp.task('watch', function(){
 	gulp.watch('./app/js/angularapp/**/*.js',['concatAngularJS']);
 	gulp.watch('./app/sass/**/*.scss',['compileSass']);
+	gulp.watch(['./app/*.html'], ['html']);
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['connect', 'concatUsageJS', 'concatUsageCSS', 'watch']);
