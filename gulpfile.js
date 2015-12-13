@@ -72,7 +72,7 @@ gulp.task('concatUsageCSS', ['usageBootstrap'], function(){
 });
 
 gulp.task('compileSass', function(){
-	return gulp.src('./app/sass/**/*.scss')
+	return gulp.src('./app/sass/style.scss')
 			.pipe(sass().on('error', sass.logError))
 			.pipe(concat('style.css'))
 			// .pipe(autoprefixer('last 2 versions'))
@@ -83,9 +83,9 @@ gulp.task('compileSass', function(){
 });
 
 gulp.task('watch', function(){
-	gulp.watch('./app/js/angularapp/**/*.js',['concatAngularJS']);
+	gulp.watch('./app/js/angularApp/**/*.js',['concatAngularJS']);
+	gulp.watch('./app/js/angularApp/**/*.html',['html']);
 	gulp.watch('./app/sass/**/*.scss',['compileSass']);
 	gulp.watch(['./app/*.html'], ['html']);
 });
-
 gulp.task('default', ['connect', 'concatUsageJS', 'concatUsageCSS','concatAngularJS', 'compileSass', 'watch']);

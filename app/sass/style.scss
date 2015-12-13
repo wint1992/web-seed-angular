@@ -5,3 +5,12 @@
 	display: block;
 	height: 0;
 }
+
+
+@import 'mixins';
+@import 'variables';
+
+@import 'fonts';
+
+/* Pages styles  */
+@import 'home/home.scss'
